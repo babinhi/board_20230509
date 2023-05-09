@@ -1,0 +1,66 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#header{
+    background-color: #CCD5AE;
+    text-align: center;
+    padding: 20px;
+}
+
+#nav{
+    background-color:#E9EDC9 ;
+
+}
+
+#section{
+    background-color: #f8f6ee;
+
+    padding: 20px;
+}
+
+#footer{
+    background-color: #CCD5AE;
+    text-align: center;
+    padding: 20px;
+}
+#nav ul{
+    list-style-type: none;
+    overflow: hidden;
+    margin: 0;
+}
+#nav ul li{
+    float: left;
+}
+#nav ul li a{
+    display: inline-block;
+    padding: 15px;
+    text-decoration: none;
+    color: black;
+}
+#section table{
+    margin: auto;
+    border: 1px solid black;
+
+}
+#section tr,td,th{
+    padding: 5px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+
+}
+
+
+#section h2{
+    text-align: center;
+    margin: 15px;
+}
+
+#nav ul li.login-name{
+    float: right;
+}
+input{
+    display: block;
+    text-align: left;
+}
