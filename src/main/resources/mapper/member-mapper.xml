@@ -8,8 +8,27 @@
         insert into member_table(memberEmail, memberPassword, memberName, memberMobile, memberProfile)
         values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberMobile}, #{memberProfile})
     </insert>
+    <insert id="saveFile" parameterType="memberFile">
+        insert into member_file_table(originalFileName, storedFileName, memberId)
+        values (#{originalFileName}, #{storedFileName}, #{memberId})
+    </insert>
     <select id="findByMemberEmail" parameterType="String" resultType="member">
         select * from member_table where memberEmail = #{memberEmail}
+    </select>
+    <select id="login" parameterType="member" resultType="member">
+        select * from member_table where memberEmail = #{memberEmail} and memberPassword = #{memberPassword}
+    </select>
+    <select id="count" resultType="Integer">
+        select count(id) from board_table
+    </select>
+    <select id="paging" parameterType="java.util.HashMap" resultType="member">
+        select * from board_table order by id desc limit #{start}, #{limit}
+    </select>
+    <select id="search" parameterType="java.util.HashMap" resultType="member">
+        select * from boara_table where ${type} like concat('%',#{q},'%') order by id desc limit #{start},#{limit}
+    </select>
+    <select id="searchCount" parameterType="java.util.HashMap" resultType="member">
+        select count(id) from ${type} where boardTitle like concat('%',#{q},'%')
     </select>
 </mapper>
 

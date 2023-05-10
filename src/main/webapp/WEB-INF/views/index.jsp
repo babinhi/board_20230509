@@ -28,5 +28,8 @@
     const go_login= () =>{
         location.href = "/member/login";
     }
+    const go_list = () =>{
+        location.href = "/board/paging";
+    }
 </script>
 </html>

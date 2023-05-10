@@ -1,6 +1,7 @@
 package com.icia.board.repository;
 
 import com.icia.board.dto.MemberDTO;
+import com.icia.board.dto.MemberFileDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,12 +16,16 @@ public class MemberRepository {
         return memberDTO;
     }
 
-    public MemberDTO findByMemberEmail(String memberEmail) {
-        return sql.selectOne("Member.findByMemberEmail", memberEmail);
+    public MemberDTO findByMemberEmail(String loginEmail) {
+        return sql.selectOne("Member.findByMemberEmail", loginEmail);
     }
 
 
     public MemberDTO login(MemberDTO memberDTO) {
         return sql.selectOne("Member.login", memberDTO);
+    }
+
+    public void saveFile(MemberFileDTO memberFileDTO) {
+        sql.insert("Member.saveFile", memberFileDTO);
     }
 }

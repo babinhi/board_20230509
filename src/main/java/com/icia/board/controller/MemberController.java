@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")
@@ -25,10 +26,11 @@ public class MemberController {
         return "memberpages/Membersave";
     }
     @PostMapping("/save")
-    public String save(@ModelAttribute MemberDTO memberDTO)  {
+    public String save(@ModelAttribute MemberDTO memberDTO) throws IOException {
         System.out.println("memberDTO = " + memberDTO);
         memberService.save(memberDTO);
-        return "/";
+
+        return "memberpages/Saveok";
     }
     @GetMapping("/login")
     public String loginForm(){
@@ -36,15 +38,24 @@ public class MemberController {
     }
     @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, Model model, HttpSession session) {
-        boolean loginresult = memberService.login(memberDTO);
-        if (loginresult) {
-            session.setAttribute("loginEmail", memberDTO);
-            return "/";
+        boolean loginResult = memberService.login(memberDTO);
+        if (loginResult) {
+            session.setAttribute("loginEmail", memberDTO.getMemberEmail());
+            return "boardpages/boardPaging";
         } else {
             return "memberpages/Memberlogin";
         }
     }
 
+    @GetMapping("/mypage")
+    public String mypage(){
+        return "memberpages/Memberpage";
+    }
+    @GetMapping("logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("loginEmail");
+        return "redirect:/";
+    }
     @PostMapping("/email-check")
     public ResponseEntity emailCheck(@RequestParam("memberEmail") String memberEmail){
         System.out.println("memberEmail = " + memberEmail);

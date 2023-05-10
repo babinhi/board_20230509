@@ -16,7 +16,6 @@ public class MemberDTO {
     public String memberPassword;
     public String memberName;
     public String memberMobile;
-    public int originalFileName;
-    public int storedFileName;
-    private List<MultipartFile> memberfile;
+    public int memberProfile;
+    private List<MultipartFile> memberFile;
 }

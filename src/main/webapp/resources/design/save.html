@@ -3,73 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-  <link rel="stylesheet" href="../css/main.css">
-  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
 </head>
 <body>
-<div id ="header">
-  <h2>20230509_회원제게시판</h2>
+<div id="header">
+    <h2>20230509_회원제게시판</h2>
 </div>
 <div id="nav">
-  <ul>
-    <li>
-      <a href="/">메인</a>
-    </li>
-    <li>
-      <a href="/#">회원가입</a>
-    </li>
-    <li>
-      <a href="#">로그인</a>
-    </li>
-    <li>
-      <a href="#">게시판</a>
-    </li>
-    <li class="login-name" id="login-area">
-    </li>
-  </ul>
+    <ul>
+        <li>
+            <a href="/">메인</a>
+        </li>
+        <li>
+            <a href="/#">회원가입</a>
+        </li>
+        <li>
+            <a href="#">로그인</a>
+        </li>
+        <li>
+            <a href="#">게시판</a>
+        </li>
+        <li class="login-name" id="login-area">
+        </li>
+    </ul>
 </div>
 <div id="section">
-  <h2>회원가입</h2>
-  <form action="member/save" method="post" >
-    <input type="text" name="memberEmail" id ="member-email"onblur="email_check()" placeholder="이메일을입력해주세요"><br>
-    <p id="check-result"></p><br>
-    <input type="text" name="memberPassword" value="패스워드를 입력해주세요"><br>
-    <input type="text" name="memberName" value="이름을 입력해주세요"><br>
-    <input type="text" name="memberMobile" value="번호를 입력해주세요"><br>
-    <input type="file" name="boardFile" value="프로필사진을 등록해주세요"> <br>
-    <input type="submit" value="가입하기">
-  </form>
+    <h2>회원가입</h2>
+    <form action="member/save" method="post">
+        <input type="text" name="memberEmail" id="member-email" onblur="email_check()" placeholder="이메일을입력해주세요"><br>
+        <p id="check-result"></p><br>
+        <input type="text" name="memberPassword" value="패스워드를 입력해주세요"><br>
+        <input type="text" name="memberName" value="이름을 입력해주세요"><br>
+        <input type="text" name="memberMobile" value="번호를 입력해주세요"><br>
+        <input type="file" name="boardFile" value="프로필사진을 등록해주세요"> <br>
+        <input type="submit" value="가입하기">
+    </form>
 </div>
-<div id ="footer">
+<div id="footer">
 
 </div>
 </body>
 <script>
-  const date = new Date();
-  console.log(date);
-  console.log(date.getFullYear());
-  const footer = document.getElementById("footer");
-  footer.innerHTML = "<p>&copy; " + date.getFullYear() + "&nbsp; HRDKOREA  All rights reserved. </p>";
+    const date = new Date();
+    console.log(date);
+    console.log(date.getFullYear());
+    const footer = document.getElementById("footer");
+    footer.innerHTML = "<p>&copy; " + date.getFullYear() + "&nbsp; HRDKOREA  All rights reserved. </p>";
 
-  const email_check = () => {
-    const email = document.getElementById("member-email").value;
-    const result = document.getElementById("check-result");
-    $.ajax({
-      type: "post",
-      url: "/email-check",
-      data: {
-        "memberEmail": email
-      },
-      success: function () {
-        result.innerHTML = "사용가능한 이메일입니다.";
-        result.style.color = "green";
-      },
-      error: function () {
-        result.innerHTML = "이미 사용 중인 이메일입니다.";
-        result.style.color = "red";
-      }
-    });
-  }
+    const email_check = () => {
+        const email = document.getElementById("member-email").value;
+        const result = document.getElementById("check-result");
+        $.ajax({
+            type: "post",
+            url: "/member/email-check",
+            data: {
+                "memberEmail": email
+            },
+            success: function () {
+                result.innerHTML = "사용가능한 이메일입니다.";
+                result.style.color = "green";
+            },
+            error: function () {
+                result.innerHTML = "이미 사용 중인 이메일입니다.";
+                result.style.color = "red";
+            }
+        });
+    }
 </script>
 </html>
