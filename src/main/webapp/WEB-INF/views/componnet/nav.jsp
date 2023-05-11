@@ -14,17 +14,20 @@
             <a href="/member/login">로그인</a>
         </li>
         <li>
-            <a href="#">게시판</a>
+            <a href="/board/save">글쓰기</a>
+        </li>
+        <li>
+            <a href="/board/paging">게시판</a>
         </li>
         <li class="login-name" id="login-area">
         <li class="login-name">
             <c:choose>
                 <c:when test="${sessionScope.loginEmail != null}">
-                    <a href="/member/mypage" style="color: black;">${sessionScope.loginEmail} 님 환영해요!</a>
+                    <a href="/member/myPage?loginEmail=${sessionScope.loginEmail}" style="color: black;">${sessionScope.loginEmail} 님</a>
                     <a href="/member/logout">logout</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="/login">login</a>
+                    <a href="/member/login">login</a>
                 </c:otherwise>
             </c:choose>
         </li>

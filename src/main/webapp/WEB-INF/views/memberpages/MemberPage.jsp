@@ -22,11 +22,16 @@
 <%@include file="../componnet/header.jsp" %>
 <%@include file="../componnet/nav.jsp" %>
 <div id="section">
+    ${sessionScope.loginEmail} 님의 회원정보
     <h2>회원 정보</h2>
     <table>
         <tr>
             <th>프로필사진</th>
             <th>
+                <c:if test="${member.memberProfile == 1}">
+                    <img src="${pageContext.request.contextPath}/upload/${memberFile.storedFileName}" alt="" width="100"
+                         height="100">
+                </c:if>
                 <c:forEach items="${memberFileList}" var="memberFile">
                     <c:if test="${member.memberProfile ==1 }">
                         <img src="${pageContext.request.contextPath}/upload/${memberFile.storedFileName}"
@@ -51,10 +56,32 @@
             <th>비밀번호</th>
             <th>${member.memberPassword}</th>
         </tr>
-
-
     </table>
+    <br><br>
+
+    <button onclick="member_update('${member.id}')">수정</button>
+    <button onclick="member_delete('${member.id}')">삭제</button>
+    <button onclick="board_list()">목록</button>
+    <br>
+</div>
 <%@include file="../componnet/footer.jsp" %>
 
 </body>
+<script>
+    const member_update = () => {
+        const id = ${member.id};
+        location.href = "/member/update?id=" + id;
+    }
+    const member_delete = () => {
+        const id = ${member.id};
+        location.href = "/member/delete?id=" + id;
+    }
+    const board_list = () => {
+        const type = '${type}';
+        const q = '${q}';
+        const page = '${page}'
+        location.href = "/board/paging";
+    }
+
+</script>
 </html>

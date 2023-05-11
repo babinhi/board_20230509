@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,13 +20,20 @@ public class MemberService {
     private MemberRepository memberRepository;
 
     public void save(MemberDTO memberDTO) throws IOException {
-        if(memberDTO.getMemberFile().get(0).isEmpty()){
-            // 파일 없음
+
+        if(memberDTO.getMemberFile().isEmpty()){
             System.out.println("파일없음");
             memberDTO.setMemberProfile(0);
             memberRepository.save(memberDTO);
-
-        }else {
+        }else{
+            //파일있으면
+            /*
+                1. 파일첨부 여부 값 1로 세팅하고 DB에 제목 등 내용 member_table에 저장 처리
+                2. 파일의 이름을 가져오고 DTO 필드값에 세팅
+                3. 저장용 파일 이름 만들고 DTO 필드값에 세팅
+                4. 로컬에 파일 저장
+                5. member_file_table에 저장 처리
+             */
             System.out.println("파일있음");
             memberDTO.setMemberProfile(1);
             MemberDTO dto = memberRepository.save(memberDTO);
@@ -53,17 +61,24 @@ public class MemberService {
 //                    memberRepository.save(memberDTO);
 
     }
+
+
     public MemberDTO findByMemberEmail(String loginEmail) {
         return memberRepository.findByMemberEmail(loginEmail);
     }
 
     public boolean login(MemberDTO memberDTO) {
         MemberDTO dto = memberRepository.login(memberDTO);
-        if(dto != null){
+        if (dto != null) {
             return true;
-        }else {
+        } else {
             return false;
         }
+    }
+
+    public MemberFileDTO findFile(Long id) {
+        return memberRepository.findFile(id);
+
     }
 }
 

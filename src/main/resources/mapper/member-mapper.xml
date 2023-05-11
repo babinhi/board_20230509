@@ -18,6 +18,9 @@
     <select id="login" parameterType="member" resultType="member">
         select * from member_table where memberEmail = #{memberEmail} and memberPassword = #{memberPassword}
     </select>
+    <select id="findFile" parameterType="Long" resultType="memberFile" >
+        select * from member_file_table where memberId =#{memberId}
+    </select>
     <select id="count" resultType="Integer">
         select count(id) from board_table
     </select>
@@ -30,5 +33,6 @@
     <select id="searchCount" parameterType="java.util.HashMap" resultType="member">
         select count(id) from ${type} where boardTitle like concat('%',#{q},'%')
     </select>
+
 </mapper>
 

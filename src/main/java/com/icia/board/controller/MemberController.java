@@ -1,7 +1,6 @@
 package com.icia.board.controller;
 
-import com.icia.board.dto.BoardDTO;
-import com.icia.board.dto.MemberDTO;
+import com.icia.board.dto.*;
 import com.icia.board.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +28,6 @@ public class MemberController {
     public String save(@ModelAttribute MemberDTO memberDTO) throws IOException {
         System.out.println("memberDTO = " + memberDTO);
         memberService.save(memberDTO);
-
         return "memberpages/Saveok";
     }
     @GetMapping("/login")
@@ -41,15 +39,22 @@ public class MemberController {
         boolean loginResult = memberService.login(memberDTO);
         if (loginResult) {
             session.setAttribute("loginEmail", memberDTO.getMemberEmail());
-            return "boardpages/boardPaging";
+            return"redirect:/board/paging";
         } else {
-            return "memberpages/Memberlogin";
+            return "memberpages/LoginError";
         }
     }
 
-    @GetMapping("/mypage")
-    public String mypage(){
-        return "memberpages/Memberpage";
+    @GetMapping("/myPage")
+    public String myPage(@RequestParam("loginEmail") String loginEmail, Model model){
+        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
+        model.addAttribute("member",memberDTO);
+        if(memberDTO.getMemberProfile() == 1){
+            MemberFileDTO memberFileDTO = (MemberFileDTO) memberService.findFile(memberDTO.getId());
+            System.out.println("memberFileDTO = " + memberFileDTO);
+            model.addAttribute("memberFile", memberFileDTO);
+        }
+        return "/memberpages/MemberPage";
     }
     @GetMapping("logout")
     public String logout(HttpSession session){
