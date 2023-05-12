@@ -35,7 +35,6 @@
             <th>${board.id}</th>
             <th>${board.boardTitle}</th>
             <th>${board.boardWriter}</th>
-<%--            <th>${sessionScope.loginEmail}</th>--%>
             <th>
                 <fmt:formatDate value="${board.boardCreatedDate}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
             </th>
