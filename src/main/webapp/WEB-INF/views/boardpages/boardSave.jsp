@@ -18,12 +18,12 @@
 <%@include file="../componnet/nav.jsp" %>
 <div id="section">
     <h2>글쓰기</h2>
-    <form action="/board/save" method="post" enctype="multipart/form-data">
+    <form action="/board/boardSave" method="post" enctype="multipart/form-data">
         <input type="text" name="boardTitle" placeholder="제목을 입력하세요"> <br>
         <input type="text" name="boardWriter" value="${sessionScope.loginEmail}" readonly> <br>
         <textarea name="boardContents" cols="30" rows="10"></textarea> <br>
         <input type="file" name="boardFile" multiple> <br>
-        <input type="submit" value="작성">
+        <input type="submit" value="작성" onclick="login_push()">
     </form>
 </div>
 <%@include file="../componnet/footer.jsp" %>

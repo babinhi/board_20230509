@@ -1,6 +1,7 @@
 package com.icia.board.controller;
 
 import com.icia.board.dto.*;
+import com.icia.board.service.BoardService;
 import com.icia.board.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ import java.util.List;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private BoardService boardService;
 
     @GetMapping("/save")
     public String saveForm(){
@@ -39,7 +42,7 @@ public class MemberController {
         boolean loginResult = memberService.login(memberDTO);
         if (loginResult) {
             session.setAttribute("loginEmail", memberDTO.getMemberEmail());
-            return"redirect:/board/paging";
+            return"redirect:/board/boardList";
         } else {
             return "memberpages/LoginError";
         }

@@ -12,6 +12,8 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/main.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+
 </head>
 <body>
 <%@include file="../componnet/header.jsp" %>
@@ -27,14 +29,17 @@
             <th>조회수</th>
         </tr>
         <c:forEach items="${boardList}" var="board">
-            <tr>
-                <th>${board.id}</th>
-                <th>${board.boardTitle}</th>
-                <th>${board.boardWriter}</th>
-                <th>${board.boardCreatedDate}</th>
-                <th>${board.boardHits}</th>
-            </tr>
-        </c:forEach>
+        <tr>
+            <th>${board.id}</th>
+            <th>${board.boardTitle}</th>
+            <th>${board.boardWriter}</th>
+<%--            <th>${sessionScope.loginEmail}</th>--%>
+            <th>
+                <fmt:formatDate value="${board.boardCreatedDate}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+            </th>
+            <th>${board.boardHits}</th>
+
+            </c:forEach>
     </table>
 
 </div>

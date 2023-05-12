@@ -30,13 +30,14 @@ public class BoardRepository {
         return sql.selectOne("Member.searchCount", pagingParams);
     }
 
-    public BoardDTO save(BoardDTO boardDTO) {
+    public BoardDTO boardSave(BoardDTO boardDTO) {
         sql.insert("Board.save",boardDTO);
         System.out.println("레포짓" +"boardDTO = " + boardDTO);
         return boardDTO;
     }
 
     public void saveFile(BoardFileDTO boardFileDTO) {
+        System.out.println("레포짓 save boardFileDTO = " + boardFileDTO);
         sql.insert("Board.saveFile", boardFileDTO);
     }
 
@@ -55,4 +56,6 @@ public class BoardRepository {
     public List<BoardFileDTO> findFile(Long id) {
         return sql.selectOne("Board.findFile", id);
     }
+
+
 }

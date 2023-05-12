@@ -4,7 +4,7 @@
 
 
 <mapper namespace="Board">
-    <insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="id">
+    <insert id="boardSave" parameterType="board" useGeneratedKeys="true" keyProperty="id">
         insert into board_table(boardTitle, boardContents, fileAttached)
         values (#{boardTitle},#{boardContents},#{fileAttached})
     </insert>
@@ -30,4 +30,5 @@
         from board_file_table
         where boardId = #{boardId}
     </select>
+
 </mapper>
