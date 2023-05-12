@@ -14,24 +14,34 @@
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/main.css">
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 
 </head>
 <body>
 <%@include file="../componnet/header.jsp" %>
 <%@include file="../componnet/nav.jsp" %>
-<div id="section">
 
+<div id="section"><br><br>
+    <div class="container" id="search-area">
+
+        <form action="/board/paging" method="get">
+            <select name="type">
+                <option value="boardTitle">제목</option>
+                <option value="boardWriter">작성자</option>
+            </select><br>
+            <input type="text" name="q" placeholder="검색어를 입력하세요">
+            <input type="submit" value="검색">
+        </form>
+    </div> <br>
     <div class="container" id="list">
         <table class="table table-striped table-hover text-center">
             <tr>
                 <th>id</th>
                 <th>title</th>
                 <th>writer</th>
-                <th>contents</th>
                 <th>hits</th>
                 <th>date</th>
-                <th>file</th>
 
 
             </tr>
@@ -39,10 +49,9 @@
                 <tr>
                     <td>${board.id}</td>
                     <td>
-                    ${board.boardTitle}
+                        <a href="/board/detail?id=+${board.id}&page=${paging.page}&q=${q}&type=${type}"> ${board.boardTitle}</a>
                     </td>
                     <td>${board.boardWriter}</td>
-                    <td>${board.boardContents}</td>
                     <td>${board.boardHits}</td>
                     <td>
                         <fmt:formatDate value="${board.boardCreatedDate}"
@@ -69,7 +78,8 @@
                 <%-- 1페이지가 아닌 경우에는 [이전]을 클릭하면 현재 페이지보다 1 작은 페이지 요청 --%>
                 <c:otherwise>
                     <li class="page-item">
-                        <a class="page-link" style="color: black" href="/board/paging?page=${paging.page-1}">[이전]</a>
+                        <a class="page-link"
+                           href="/board/paging?page=${paging.page-1}&q=${q}&type=${type}">[이전]</a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -85,7 +95,7 @@
                     <%-- eq는 == 라는 뜻  --%>
                     <c:when test="${i eq paging.page}">
                         <li class="page-item active">
-                            <a class="page-link" style="background-color: #808080;border: none;color: #111111">${i}</a>
+                            <a class="page-link" >${i}</a>
                         </li>
                     </c:when>
 
@@ -95,7 +105,8 @@
                                 <%-- 예를 들어 [1] [2] [3] 페이지 중에 머물고있는 페이지가 2페이지이면
                                       1,3 번호를 클릭하면 그 1번 페이지.3번페이지로 이동할수 있게 함              --%>
 
-                            <a class="page-link" style="color: #020202" href="/board/paging?page=${i}"> ${i} </a>
+                            <a class="page-link"
+                               href="/board/paging?page=${i}&q=${q}&type=${type}"> ${i} </a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -113,14 +124,15 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item">
-                        <a class="page-link" style="color: black" href="/board/paging?page=${paging.page+1}">[다음]</a>
+                        <a class="page-link"
+                           href="/board/paging?page=${paging.page+1}&q=${q}&type=${type}">[다음]</a>
                     </li>
                 </c:otherwise>
             </c:choose>
         </ul>
     </div>
 </div>
-</div>
+
 <%@include file="../componnet/footer.jsp" %>
 </body>
 </html>

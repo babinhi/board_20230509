@@ -17,7 +17,7 @@
             <a href="/board/boardSave">글쓰기</a>
         </li>
         <li>
-            <a href="/board/boardList">게시판</a>
+            <a href="/board/paging">게시판</a>
         </li>
         <li class="login-name" id="login-area">
         <li class="login-name">

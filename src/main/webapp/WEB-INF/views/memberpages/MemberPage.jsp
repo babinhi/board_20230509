@@ -13,6 +13,8 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/main.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
@@ -70,7 +72,7 @@
 <script>
     const member_update = () => {
         const id = ${member.id};
-        location.href = "/member/update?id=" + id;
+        location.href = "/member/updatePassword?id=" + id;
     }
     const member_delete = () => {
         const id = ${member.id};

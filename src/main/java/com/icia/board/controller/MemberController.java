@@ -42,7 +42,7 @@ public class MemberController {
         boolean loginResult = memberService.login(memberDTO);
         if (loginResult) {
             session.setAttribute("loginEmail", memberDTO.getMemberEmail());
-            return"redirect:/board/boardList";
+            return"redirect:/";
         } else {
             return "memberpages/LoginError";
         }
@@ -74,5 +74,32 @@ public class MemberController {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
 
+    }
+    @GetMapping("/update")
+    public String updateForm(@RequestParam("id") Long id, Model model){
+        MemberDTO memberDTO = memberService.findById(id);
+        return "memberpages/MemberUpdate";
+    }
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO, Model model){
+        memberService.update(memberDTO);
+        MemberDTO dto = memberService.findById(memberDTO.getId());
+        model.addAttribute("member",dto);
+        return "redirect:/";
+    }
+    @GetMapping("/updatePassword")
+    public String updateForm(HttpSession session, Model model){
+        String loginEmail = (String)session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
+        model.addAttribute("member", memberDTO);
+        return "/memberpages/PasswordCheck";
+    }
+
+    @PostMapping("/updatePassword")
+    public String updatePass(HttpSession session, Model model){
+        String loginEmail = (String)session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
+        model.addAttribute("member", memberDTO);
+        return "/memberpages/MemberUpdate";
     }
 }

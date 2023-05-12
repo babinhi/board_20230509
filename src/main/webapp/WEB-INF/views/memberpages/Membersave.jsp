@@ -6,10 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/main.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
@@ -48,11 +52,11 @@
         if (password.match(exp)) {
             resultp.innerHTML = "사용가능한 비밀번호입니다.";
             resultp.style.color = "green";
-            return true;
+            return false;
         } else {
             resultp.innerHTML = "소문자,숫자,특수문자(-_!# 중) 필수입력 입니다\n5~10글자 내로 입력하세요";
             resultp.style.color = "red";
-            return false;
+            return true;
         }
 
     }
@@ -64,11 +68,11 @@
         if(password == check){
             checkresult.innerHTML = "비밀번호가 일치합니다";
             checkresult.style.color = "green";
-            return true;
+            return false;
         }else {
             checkresult.innerHTML = "비밀번호를 확인해주세요";
             checkresult.style.color = "red";
-            return false;
+            return true;
         }
 
     }
@@ -81,12 +85,12 @@
         if (name.match(exp)) {
             resultn.innerHTML = "멋진 이름이군요! 하핫 :)";
             resultn.style.color = "green";
-            return true;
+            return false;
 
         } else {
             resultn.innerHTML = "다시한번 확인해주세요";
             resultn.style.color = "red";
-            return false;
+            return true;
         }
 
     }
@@ -121,21 +125,21 @@
                 if (email.length == 0) {
                     result.innerHTML = "필수입력입니다";
                     result.style.color = "red";
-                    return false;
+
                 } else if (email.match(exp)) {
                     result.innerHTML = "사용가능한 이메일입니다.";
                     result.style.color = "green";
-                    return true;
+
                 } else {
                     result.innerHTML = "6~15자 사이로 입력해주세요.";
                     result.style.color = "red";
-                    return false;
+
                 }
             },
             error: function () {
                 result.innerHTML = "이미 사용 중인 이메일입니다.";
                 result.style.color = "red";
-                return false;
+
             }
         });
     }

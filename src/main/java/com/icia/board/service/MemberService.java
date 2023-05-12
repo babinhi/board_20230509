@@ -80,6 +80,14 @@ public class MemberService {
         return memberRepository.findFile(id);
 
     }
+
+    public void update(MemberDTO memberDTO) {
+        memberRepository.update(memberDTO);
+    }
+
+    public MemberDTO findById(Long id) {
+        return memberRepository.findById(id);
+    }
 }
 
 

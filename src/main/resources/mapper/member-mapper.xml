@@ -21,18 +21,22 @@
     <select id="findFile" parameterType="Long" resultType="memberFile" >
         select * from member_file_table where memberId =#{memberId}
     </select>
-    <select id="count" resultType="Integer">
-        select count(id) from board_table
-    </select>
-    <select id="paging" parameterType="java.util.HashMap" resultType="member">
-        select * from board_table order by id desc limit #{start}, #{limit}
-    </select>
-    <select id="search" parameterType="java.util.HashMap" resultType="member">
-        select * from boara_table where ${type} like concat('%',#{q},'%') order by id desc limit #{start},#{limit}
-    </select>
+
     <select id="searchCount" parameterType="java.util.HashMap" resultType="member">
         select count(id) from ${type} where boardTitle like concat('%',#{q},'%')
     </select>
-
+    <update id="update" parameterType="member">
+        update member_table
+        set memberPassword=#{memberPassword},
+            memberName=#{memberName},
+            memberMobile=#{memberMobile}
+        where id = #{id}
+    </update>
+    <delete id="delete" parameterType="member">
+        delete from member_table where id =#{id}
+    </delete>
+    <select id="findById" parameterType="Long" resultType="member">
+        select * from member_table where id=(#{id})
+    </select>
 </mapper>
 

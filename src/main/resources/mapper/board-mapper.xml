@@ -4,31 +4,52 @@
 
 
 <mapper namespace="Board">
-    <insert id="boardSave" parameterType="board" useGeneratedKeys="true" keyProperty="id">
-        insert into board_table(boardTitle, boardContents, fileAttached)
-        values (#{boardTitle},#{boardContents},#{fileAttached})
+    <insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="id">
+        insert into board_table( boardTitle, boardContents, fileAttached)
+        values ( #{boardTitle}, #{boardContents} ,#{fileAttached})
     </insert>
+
     <insert id="saveFile" parameterType="boardFile">
         insert into board_file_table(originalFileName, storedFileName, boardId)
         values (#{originalFileName}, #{storedFileName}, #{boardId})
     </insert>
+
     <select id="findAll" resultType="board">
         select * from board_table
     </select>
-    <select id="findById" parameterType="Long" resultType="board">
-        select *
-        from board_table
-        where id = (#{id})
-    </select>
-    <update id="updateHits" parameterType="board">
-        update board_table
-        set boardHits = boardHits + 1
-        where id = #{id}
-    </update>
-    <select id="findFile" parameterType="Long" resultType="boardFile">
-        select *
-        from board_file_table
-        where boardId = #{boardId}
+
+    <select id="paging" parameterType="java.util.HashMap" resultType="board">
+        select * from board_table order by id desc Limit #{start}, #{Limit}
     </select>
 
+    <select id="count" resultType="Integer">
+        select count(id) from board_table
+    </select>
+
+    <update id="updateHits" parameterType="Long">
+        update board_table set boardHits=boardHits+1 where id=#{id}
+    </update>
+
+    <select id="findById" parameterType="Long" resultType="board">
+        select * from board_table where id=#{id}
+    </select>
+
+    <select id="findFile" parameterType="Long" resultType="boardFile">
+        select * from board_file_table where boardId=#{boardId}
+    </select>
+    <update id="update" parameterType="board">
+        update board_table set boardTitle=#{boardTitle}, boardContents=#{boardContents}
+        where id=#{id}
+    </update>
+    <delete id="delete" parameterType="board">
+        delete from board_table where id=#{id};
+    </delete>
+
+    <select id="search" parameterType="java.util.HashMap" resultType="board">
+        select * from board_table where ${type} like concat('%', #{q}, '%') order by id desc limit #{start}, #{limit}
+    </select>
+
+    <select id="searchCount" parameterType="java.util.HashMap" resultType="Integer">
+        select count(id) from board_table where ${type} like concat('%', #{q}, '%')
+    </select>
 </mapper>

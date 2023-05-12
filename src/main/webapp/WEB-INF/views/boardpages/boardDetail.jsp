@@ -70,7 +70,7 @@
 <script>
     const board_update = () => {
         const id =${board.id};
-        location.href = "/board/update?id=" + id;
+        location.href = "/board/updatePassword?id=" + id;
     }
     const board_delete = () => {
         const id =${board.id};
