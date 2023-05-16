@@ -87,7 +87,7 @@ public class MemberController {
         model.addAttribute("member",dto);
         return "redirect:/";
     }
-    @GetMapping("/updatePassword")
+    @GetMapping("/PasswordCheck")
     public String updateForm(HttpSession session, Model model){
         String loginEmail = (String)session.getAttribute("loginEmail");
         MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
@@ -95,12 +95,13 @@ public class MemberController {
         return "memberpages/PasswordCheck";
     }
 
-    @PostMapping("/updatePassword")
+    @PostMapping("/PasswordCheck")
     public String updatePass(HttpSession session, Model model){
         String loginEmail = (String)session.getAttribute("loginEmail");
         MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
         model.addAttribute("member", memberDTO);
-        return "memberpages/MemberUpdate";
+        memberService.delete(memberDTO);
+        return "memberpages/MemberDelete";
     }
     @GetMapping("/manager")
     public String managerForm(Model model){

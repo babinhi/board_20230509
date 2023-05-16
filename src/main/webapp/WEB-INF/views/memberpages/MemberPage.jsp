@@ -76,7 +76,7 @@
     }
     const member_delete = () => {
         const id = ${member.id};
-        location.href = "/member/delete?id=" + id;
+        location.href = "/member/PasswordCheck?id=" + id;
     }
     const board_list = () => {
         const type = '${type}';

@@ -21,7 +21,7 @@
 <%@include file="../componnet/nav.jsp" %>
 <div id="section">
     <h2>비밀번호 확인</h2>
-    <form action="/member/updatePassword" method="post" name="updateForm">
+    <form action="/member/PasswordCheck" method="post" name="updateForm">
         <input type="text" name="memberPassword" id="memberPassword" placeholder="현재 비밀번호"><br>
         <input type="button" onclick="passnumber_check()" value="확인">
     </form>
