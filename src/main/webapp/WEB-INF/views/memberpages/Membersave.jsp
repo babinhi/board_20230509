@@ -102,11 +102,12 @@
         if (!(mobile.match(exp))) {
             resultm.innerHTML = "000 - 0000 - 0000(기호필수)으로 입력해주세요";
             resultm.style.color = "red";
-            return false;
+            return true;
         } else {
             resultm.innerHTML = "입력 가능합니다";
             resultm.style.color = "green";
-            return true;
+            return false;
+
         }
 
     }

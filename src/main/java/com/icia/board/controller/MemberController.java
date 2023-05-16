@@ -92,7 +92,7 @@ public class MemberController {
         String loginEmail = (String)session.getAttribute("loginEmail");
         MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
         model.addAttribute("member", memberDTO);
-        return "/memberpages/PasswordCheck";
+        return "memberpages/PasswordCheck";
     }
 
     @PostMapping("/updatePassword")
@@ -100,6 +100,19 @@ public class MemberController {
         String loginEmail = (String)session.getAttribute("loginEmail");
         MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
         model.addAttribute("member", memberDTO);
-        return "/memberpages/MemberUpdate";
+        return "memberpages/MemberUpdate";
+    }
+    @GetMapping("/manager")
+    public String managerForm(Model model){
+        List<MemberDTO> memberDTOList = memberService.findAll();
+        System.out.println("넘어오나 체크 memberDTOList = " + memberDTOList);
+        model.addAttribute("memberList", memberDTOList);
+        return "memberpages/ManagerPage";
+    }
+    @GetMapping("/memberDelete")
+    public String deleteManager(@ModelAttribute MemberDTO memberDTO){
+        System.out.println("체크용 memberDTO = " + memberDTO);
+        memberService.delete(memberDTO);
+        return "redirect:manager";
     }
 }

@@ -103,6 +103,22 @@ public class boardController {
         boardService.delete(boardDTO);
         return "redirect:/boardpages/paging";
     }
+
+    @GetMapping("/boardPassword")
+    public String updateForm(HttpSession session, Model model){
+        String loginEmail = (String)session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
+        model.addAttribute("member", memberDTO);
+        return "boardpages/boardUpdate";
+    }
+    @PostMapping("/boardPassword")
+    public String boardUpdate(HttpSession session, Model model){
+        String loginEmail = (String)session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
+        model.addAttribute("member", memberDTO);
+
+        return "/boardpages/boardUpdate";
+    }
     @GetMapping("/update")
     public String updateForm(@RequestParam("id") Long id, Model model) {
         BoardDTO boardDTO = boardService.findById(id);
@@ -110,7 +126,6 @@ public class boardController {
         return "/boardpages/boardUpdate";
 
     }
-
     @PostMapping("/update")
     public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
         System.out.println("수줭버튼 누른 후 boardDTO = " + boardDTO);

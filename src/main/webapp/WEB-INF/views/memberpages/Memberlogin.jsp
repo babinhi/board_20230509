@@ -30,4 +30,25 @@
 </div>
 <%@include file="../componnet/footer.jsp" %>
 </body>
+<script>
+    <!-- 이벤트 리스너 적용 -->
+    const saveForm = document.getElementById("save-form");
+    saveForm.addEventListener("submit", function (e) {
+        e.preventDefault(); // 해당 요소의 기본 동작을 수행하지 않을 때
+        // 로그인 버튼을 아무리 눌러도 서브밋을 막음
+
+        const email = document.getElementById("member-email");
+        const password = document.getElementById("member-password");
+        if(email.value == ""){
+            alert("이메일을 입력하세요");
+            email.focus();
+        }else if(password.value == ""){
+            alert("비밀번호를 입력하세요");
+            password.focus();
+        }else{
+            saveForm.submit();
+        }
+
+    });
+</script>
 </html>

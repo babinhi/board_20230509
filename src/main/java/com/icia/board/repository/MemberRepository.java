@@ -43,4 +43,12 @@ public class MemberRepository {
     public MemberDTO findById(Long id) {
         return sql.selectOne("Member.findById", id);
     }
+
+    public List<MemberDTO> findAll() {
+        return sql.selectList("Member.findAll");
+    }
+
+    public void delete(MemberDTO memberDTO) {
+        sql.delete("Member.delete",memberDTO );
+    }
 }

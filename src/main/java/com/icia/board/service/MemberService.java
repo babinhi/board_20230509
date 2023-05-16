@@ -88,6 +88,14 @@ public class MemberService {
     public MemberDTO findById(Long id) {
         return memberRepository.findById(id);
     }
+
+    public List<MemberDTO> findAll() {
+        return memberRepository.findAll();
+    }
+
+    public void delete(MemberDTO memberDTO) {
+        memberRepository.delete(memberDTO);
+    }
 }
 
 

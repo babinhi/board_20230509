@@ -31,6 +31,12 @@
                 </c:otherwise>
             </c:choose>
         </li>
+        <li class="login-name">
+            <c:if test="${sessionScope.loginEmail == 'admin'}">
+                <a href="/member/manager">회원리스트</a>
+                <a href="/board/boardList" class="left1">List</a>
+            </c:if>
+        </li>
         </li>
     </ul>
 </div>
