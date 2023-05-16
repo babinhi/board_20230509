@@ -2,6 +2,7 @@ package com.icia.board.controller;
 
 import com.icia.board.dto.*;
 import com.icia.board.service.BoardService;
+import com.icia.board.service.CommentService;
 import com.icia.board.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ public class boardController {
     private MemberService memberService;
     @Autowired
     private BoardService boardService;
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/boardSave")
     public String boardSaveForm(HttpSession session, Model model){
@@ -93,6 +96,15 @@ public class boardController {
             List<BoardFileDTO> boardFileDTO = boardService.findFile(id);
             model.addAttribute("boardFileList", boardFileDTO);
             System.out.println("boardFileDTO = " + boardFileDTO);
+        }
+        List<CommentDTO> commentDTOList = commentService.findAll(id);
+        if (commentDTOList.size() == 0) {
+            //댓글이 없으면 list에 null적용
+            model.addAttribute("commentList", null);
+        } else {
+            //댓글이 있으면 서버에서 가져온 commentDTOList를 넘겨준다
+            model.addAttribute("commentList", commentDTOList);
+            System.out.println("야야야commentDTOList = " + commentDTOList);
         }
         return "boardpages/boardDetail";
     }
